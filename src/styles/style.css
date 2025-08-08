@@ -1,0 +1,147 @@
+:root{
+	--main-clr: #2b3340;
+	--main-highlight-clr: #3f5671;
+	--main-shadow-clr: #161f2b;
+	--sec-clr: rgb(68, 49, 74);
+	--sec-highlight-clr: rgb(110, 82, 107);
+	--sec-shadow-clr: rgb(35, 27, 41);
+
+	--main-font-clr: beige;
+}
+
+html, body{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background-color: var(--main-clr);
+	display: grid;
+	grid-template-rows: 90px 1fr;
+	grid-template-columns: 240px 1fr;
+	grid-template-areas:
+	"header header"
+	"sidebar projects";
+	align-items: stretch;
+	height: 100vh;
+}
+
+.projects-sidebar{
+	grid-area: sidebar;
+	background-color: var(--sec-clr);
+	padding: 1em;
+}
+
+.projects-list{
+	margin-inline: 2em;
+	display: list-item;
+}
+
+.project-card{
+	width: 170px;
+	display: grid;
+	grid-template-columns: 1fr 20px 20px;
+	justify-items: end;
+	align-items: center;
+	gap: 4px;
+}
+
+.project-card > p{
+	max-width: 120px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	justify-self: start;
+}
+
+.delete-project, .rename-project{
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px;
+	width: 20px;
+	height: 20px;
+}
+
+.delete-project{
+	background-image: url(../assets/delete.png);
+}
+
+.rename-project{
+	background-image: url(../assets/rename.png);
+}
+
+.header{
+	grid-area: header;
+	color: beige;
+	background-color: var(--main-shadow-clr);
+	padding: 1em;
+	text-align: center;
+}
+
+.to-do-edit{
+	grid-area: edit-project;
+}
+
+.project-display{
+	background-color: var(--main-clr);
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	padding: 2rem;
+	overflow-y: scroll;
+}
+
+.to-do-card{
+	background-color: var(--main-highlight-clr);
+	padding: 1em;
+	margin-right: 1em;
+	min-width: 700px;
+	display: grid;
+	grid-template-columns: 1fr repeat(4, 40px);
+	gap: 6px;
+	align-items: center;
+	justify-items: end;
+}
+
+.to-do-card > button {
+	border: none;
+	border-style: none;
+	width: 40px;
+	height: 40px;
+}
+
+.to-do-card > p{
+	max-width: 350px;
+	max-height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	justify-self: start;
+}
+
+.close-button, .up-button, .down-button, .edit-button{
+	background-color: transparent;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px;
+}
+
+.close-button{
+	background-image: url(../assets/close-thick.png);
+}
+
+.up-button{
+	background-image: url(../assets/menu-up.png);
+}
+
+.down-button{
+	background-image: url(../assets/menu-down.png);
+}
+
+.edit-button{
+	background-image: url(../assets/dots-horizontal.png);
+}
