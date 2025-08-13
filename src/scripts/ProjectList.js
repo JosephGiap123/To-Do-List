@@ -1,12 +1,21 @@
-import { Project } from "./Project";
+import { Project } from "./Project.js";
 //singleton.
 
 export class ProjectList{
+	static currentProject;
+
 	constructor(){
 		if(!ProjectList.instance){
 			this.projectsList = [];
+			this.addProject('Default');
+			ProjectList.currentProject = this.projectsList[0];
 		}
 		else return ProjectList.instance;
+	}
+
+	changeCurrentProject(newIndex){
+		if(newIndex < 0 || newIndex > this.projectsList.length) return;
+		ProjectList.currentProject = this.projectsList[newIndex];
 	}
 
 	addProject(name){
@@ -14,52 +23,30 @@ export class ProjectList{
 		this.projectsList.push(newProject);
 	}
 
-	renameProject(projectID, newName){
-		this.projectsList.forEach((project) => {
-			if(project.id === projectID){
-				project.renameProject(newName);
-				return;
-			}
-		});
+	renameProject(index, newName){
+		if(index < 0 || index > this.projectsList.length) return;
+		this.projectsList[index].renameProject(newName);
 	}
 
-	deleteProject(projectID){
-		this.projectsList.forEach((project,index)=>{
-			if(project.id === projectID){
-				this.projectsList.splice(index, 1);
-				return;
-			}
-		});
-	}
-
-	findProject(projectID){
-		for(let i = 0; i < this.projectsList.length; i++){
-			if(this.projectsList[i].id === projectID){
-				return {project: this.projectsList[i], index: i}; 
-			}
-		}
+	deleteProject(index){
+		if(index < 0 || index > this.projectsList.length) return;
+		this.projectsList.splice(index, 1);
 	}
 
 	logProjects(){
 		this.projectsList.forEach((project) =>{
-			console.log(`Project Name: ${project.name}, ${project.id}`)
+			console.log(`Project Name: ${project.name}`)
 			project.outputAllToDos();
 		});
 	}
 
-	tempGetProjectID(index){
-		return this.projectsList[index].id;
-	}
-
-	addToDo(projectID, name, desc, dueDate, priority){
-		const projObj = this.findProject(projectID);
-		const project = projObj.project;
+	addToDo(name, desc, dueDate, priority){
+		let project = ProjectList.currentProject;
+		console.log(project);
 		project.addCard(name, desc, dueDate, priority);
 	}
 
-	delToDo(projectID, name, desc, dueDate, priority){
-		const projObj = this.findProject(projectID);
-		const project = projObj.project;
-		project.deleteCard(name, desc, dueDate, priority);
+	delToDo(index){
+		ProjectList.currentProject.deleteCard(index);
 	}
 }

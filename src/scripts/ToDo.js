@@ -4,7 +4,6 @@ export class ToDo{
 		this.description = description,
 		this.dueDate = dueDate,
 		this.priority = priority;
-		this.id = crypto.randomUUID(); //for deletion!
 	}
 
 	changeToDoInfo(newTitle, newDesc, newDate, newPriority){

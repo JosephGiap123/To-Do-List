@@ -4,7 +4,6 @@ export class Project{
 	constructor(name){
 		this.name = name;
 		this.toDoList = [];
-		this.id = crypto.randomUUID();
 	}
 
   addCard(name, description, dueDate, priority){
@@ -12,22 +11,34 @@ export class Project{
 		this.toDoList.push(toDoCard);
 	}
 
-	deleteCard(id){
-		this.toDoList.forEach((card, index)=>{
-			if(card.id === id){
-				this.toDoList.splice(index,1);
-				return;
-			}
-		});
+	deleteCard(index){
+		if(index < 0 || index > this.toDoList.length-1) return;
+		this.toDoList.splice(index, 1);
 	}
 
 	renameProject(newName){
 		this.name = newName;
 	}
 
+	moveToDoUp(index){
+		if(index > 0){
+			const temp = this.toDoList[index-1];
+			this.toDoList[index-1] = this.toDoList[index];
+			this.toDoList[index] = temp;
+		}
+	}
+
+	moveToDoDown(index){
+		if(index < this.toDoList.length-1){
+			const temp = this.toDoList[index+1];
+			this.toDoList[index+1] = this.toDoList[index];
+			this.toDoList[index] = temp;
+		}
+	}
+
 	outputAllToDos(){
 		this.toDoList.forEach((toDo, index)=>{
-			console.log(`${index}: ${toDo.name}`);
+			console.log(`${index}: ${toDo.title}`);
 		});
 	}
 }
