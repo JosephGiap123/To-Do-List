@@ -25,16 +25,20 @@ export class DOMInterface{
 		</form>`;
 		//attach submit event
 		document.querySelector('.create-form').addEventListener('submit', (event) =>{
-			//add the to-do to the current project.
 			event.preventDefault();
 			const formData = new FormData(event.target);
-			console.log(formData);
+			const name = formData.get('title');
+			const date = formData.get("date");
+			const priority = formData.get('priority');
+			const desc = formData.get('description') ? formData.get('description') : '';
 
+			ProjectList.addToDo(name, desc, date, priority);
+			this.updateToDo();
 			document.querySelector('#to-do-info').close();
 		});
 	}
 
-	static createChangeToDoDialog(index){
+	static changeToDoDialog(index){
 		this.#_dialog.innerHTML = 
 		`<form class="change-form" data-idx='${index}'>
 				<p class="dialog-title">Edit To-Do</p>
@@ -119,7 +123,7 @@ function createCard(name, priority, dueDate, index){
 		DOMInterface.updateToDo();
 	});
 	edit.addEventListener('click', ()=>{
-		DOMInterface.createChangeToDoDialog(index);
+		DOMInterface.changeToDoDialog(index);
 		const dialog = document.querySelector('#to-do-info');
 		dialog.showModal();
 	});
@@ -137,7 +141,9 @@ function createAddToDoButton(){
 	toDoButton.appendChild(createDOMElement("div", ["add-to-do-icon"]));
 
 	toDoButton.addEventListener('click', ()=>{
-		console.log('add'); //#TODO: Add ability to add custom thingies.
+		DOMInterface.createToDoDialog();
+		const dialog = document.querySelector('#to-do-info');
+		dialog.showModal();
 	});
 	return toDoButton;
 }
