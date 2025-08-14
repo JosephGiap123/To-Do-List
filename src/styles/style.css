@@ -26,6 +26,25 @@ body{
 	height: 100vh;
 }
 
+#to-do-info{
+	inset: 0;
+	margin: auto;
+}
+
+#to-do-info{
+
+}
+
+#to-do-info > form{
+	display: grid;
+	gap: 6px;
+}
+
+.submit-to-do-change{
+	
+}
+
+
 .projects-sidebar{
 	grid-area: sidebar;
 	background-color: var(--sec-clr);
@@ -55,6 +74,7 @@ body{
 
 .delete-project, .rename-project , .view-project{
 	border: none;
+	cursor: pointer;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: center;
