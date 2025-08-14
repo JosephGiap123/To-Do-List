@@ -91,6 +91,7 @@ export class DOMInterface{
 	}
 
 	static displayToDos(project){
+		DOMInterface.#_cardArea.textContent = ProjectList.currentProject.name;
 		project.toDoList.forEach((toDo, index)=>{
 			DOMInterface.#_cardArea.appendChild(createCard(toDo.title, toDo.priority, toDo.dueDate, index));
 		});
@@ -157,7 +158,9 @@ function createProjectCard(name, index){
 
 	//bind event listeners
 	view.addEventListener('click', ()=>{
-		console.log('view');
+		ProjectList.changeCurrentProject(index);
+		DOMInterface.updateProjects(ProjectList.projectsList);
+		DOMInterface.updateToDo();
 	});
 	rename.addEventListener('click', ()=>{
 		console.log('rename');
