@@ -1,0 +1,54 @@
+.projects-sidebar{
+	grid-area: sidebar;
+	background-color: var(--sec-clr);
+	padding: 1em;
+}
+
+.projects-list{
+	margin-inline: 2em;
+}
+
+.project-card{
+	padding-inline: 10px;
+	width: 180px;
+	display: grid;
+	grid-template-columns: 1fr 20px 20px 20px;
+	justify-items: end;
+	align-items: center;
+	gap: 4px;
+}
+
+.selected-project{
+	background-color: var(--sec-highlight-clr);
+}
+
+.project-card > p{
+	max-width: 120px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	justify-self: start;
+}
+
+.delete-project, .rename-project , .view-project{
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px;
+	width: 20px;
+	height: 20px;
+}
+
+.delete-project{
+	background-image: url(../assets/delete.png);
+}
+
+.rename-project{
+	background-image: url(../assets/rename.png);
+}
+
+.view-project{
+	background-image: url(../assets/eye.png);
+}

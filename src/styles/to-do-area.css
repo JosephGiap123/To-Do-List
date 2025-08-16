@@ -1,0 +1,84 @@
+.project-display{
+	text-align: center;
+	color: beige;
+	background-color: var(--main-clr);
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	padding: 2rem;
+	overflow-y: scroll;
+}
+
+.to-do-card{
+	color: black;
+	background-color: var(--main-highlight-clr);
+	padding: 1em;
+	margin-right: 1em;
+	min-width: 700px;
+	display: grid;
+	grid-template-columns: 1fr repeat(4, 40px);
+	gap: 6px;
+	align-items: center;
+	justify-items: end;
+}
+
+.add-to-do-button{
+	background-color: var(--main-highlight-clr);
+	padding: 1em;
+	margin-right: 1em;
+	min-width: 700px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.to-do-card > button {
+	border: none;
+	border-style: none;
+	width: 40px;
+	height: 40px;
+}
+
+.to-do-card > p{
+	max-width: 350px;
+	max-height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	justify-self: start;
+}
+
+.close-button, .up-button, .down-button, .edit-button{
+	background-color: transparent;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px;
+}
+
+.add-to-do-icon{
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px;
+	width: 40px;
+	height: 40px;
+	background-image: url(../assets/plus-box.png);
+}
+
+.close-button{
+	background-image: url(../assets/close-thick.png);
+}
+
+.up-button{
+	background-image: url(../assets/menu-up.png);
+}
+
+.down-button{
+	background-image: url(../assets/menu-down.png);
+}
+
+.edit-button{
+	background-image: url(../assets/dots-horizontal.png);
+}

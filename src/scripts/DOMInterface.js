@@ -38,21 +38,21 @@ export class DOMInterface{
 		});
 	}
 
-	static changeToDoDialog(index){
+	static changeToDoDialog(index, name, desc, dueDate, priority){
 		this.#_dialog.innerHTML = 
 		`<form class="change-form" data-idx='${index}'>
 				<p class="dialog-title">Edit To-Do</p>
 				<label for="title">Title</label>
-				<input type="text" class="name-input" name="title" value="Default" required>
+				<input type="text" class="name-input" name="title" value="${name}" required>
 
 				<label for="description">Description</label>
-				<textarea name="description" id="description" name="description"></textarea>
+				<textarea name="description" id="description" name="description"></textarea value="${desc}">
 
 				<label for="priority">Priority</label>
-				<input type="number" class="priority-input" name="priority" value="1" required>
+				<input type="number" class="priority-input" name="priority" min="0" value="${priority}" required>
 
 				<label for="date">Due Date</label>
-				<input type="date" class="date-input" name="date" value="2025-08-14">
+				<input type="date" class="date-input" name="date" value="${dueDate}">
 
 				<input type="submit" class="submit-dialog js-change-to-do" value="Submit">
 		</form>`;
@@ -71,6 +71,25 @@ export class DOMInterface{
 		});
 	}
 
+	static createRenameProjectDialog(index){
+		this.#_dialog.innerHTML = 
+		`<form class="change-form" data-idx='${index}'>
+				<p class="dialog-title">Rename Project</p>
+				<label for="title">Project Name</label>
+				<input type="text" class="title-input" name="title" value="Default" required>
+				<input type="submit" class="submit-dialog js-change-to-do" value="Submit">
+		</form>`;
+		document.querySelector('.change-form').addEventListener('submit', (event)=>{
+			event.preventDefault();
+			const formData = new FormData(event.target);
+			const newTitle = formData.get('title');
+			ProjectList.currentProject.renameProject(newTitle);
+			this.updateProjects(ProjectList.projectsList);
+			this.updateToDo();
+			document.querySelector('#to-do-info').close();
+		});
+	}
+
 	static clearTodoDOM(){
 		this.#_cardArea.innerHTML = '';
 	}
@@ -81,8 +100,11 @@ export class DOMInterface{
 
 	static displayProjects(projectList){
 		projectList.forEach((project, index)=>{
-			DOMInterface.#_projectArea.appendChild(createProjectCard(project.name, index));
+			const projCard = createProjectCard(project, index);
+			DOMInterface.#_projectArea.appendChild(projCard);
 		});
+		const addProject = createDOMElement('div', ['add-project']);
+		addProject.appendChild(createDOMElement('div', ['add-proj-logo']));
 	}
 
 	static updateProjects(projectList){
@@ -93,7 +115,7 @@ export class DOMInterface{
 	static displayToDos(project){
 		DOMInterface.#_cardArea.textContent = ProjectList.currentProject.name;
 		project.toDoList.forEach((toDo, index)=>{
-			DOMInterface.#_cardArea.appendChild(createCard(toDo.title, toDo.priority, toDo.dueDate, index));
+			DOMInterface.#_cardArea.appendChild(createCard(toDo.title, toDo.description, toDo.priority, toDo.dueDate, index));
 		});
 		DOMInterface.#_cardArea.appendChild(createAddToDoButton());
 	}
@@ -104,7 +126,7 @@ export class DOMInterface{
 	}
 }
 
-function createCard(name, priority, dueDate, index){
+function createCard(name, desc,  priority, dueDate, index){
 	const toDoCard = createDOMElement("div", ['to-do-card'], "", {idx: `${index}`});
 	toDoCard.appendChild(createDOMElement("p", ['title'], name));
 	const up = toDoCard.appendChild(createDOMElement("button", ['up-button']));
@@ -124,7 +146,7 @@ function createCard(name, priority, dueDate, index){
 		DOMInterface.updateToDo();
 	});
 	edit.addEventListener('click', ()=>{
-		DOMInterface.changeToDoDialog(index);
+		DOMInterface.changeToDoDialog(index, name, desc, dueDate, priority);
 		const dialog = document.querySelector('#to-do-info');
 		dialog.showModal();
 	});
@@ -149,27 +171,32 @@ function createAddToDoButton(){
 	return toDoButton;
 }
 
-function createProjectCard(name, index){
+function createProjectCard(project, index){
 	const projectCard = createDOMElement("div", ["project-card"], "", {idx: `${index}`});
-	projectCard.appendChild(createDOMElement("p", [], name));
-	const view = projectCard.appendChild(createDOMElement("button", ["view-project"]));
-	const rename =projectCard.appendChild(createDOMElement("button", ["rename-project"]));
-	const del = projectCard.appendChild(createDOMElement("button", ["delete-project"]));
-
-	//bind event listeners
-	view.addEventListener('click', ()=>{
-		ProjectList.changeCurrentProject(index);
-		DOMInterface.updateProjects(ProjectList.projectsList);
-		DOMInterface.updateToDo();
-	});
+	projectCard.appendChild(createDOMElement("p", [], project.name));
+	const rename = projectCard.appendChild(createDOMElement("button", ["rename-project"]));
 	rename.addEventListener('click', ()=>{
 		console.log('rename');
+		DOMInterface.createRenameProjectDialog(index);
+		const dialog = document.querySelector('#to-do-info');
+		dialog.showModal();
 	});
-	del.addEventListener('click', ()=>{
+	if((project === ProjectList.currentProject)){
+		projectCard.classList.add('selected-project');
+	}
+	else{
+		const view = projectCard.appendChild(createDOMElement("button", ["view-project"]));
+		const del = projectCard.appendChild(createDOMElement("button", ["delete-project"]));
+		view.addEventListener('click', ()=>{
+			ProjectList.changeCurrentProject(index);
+			DOMInterface.updateProjects(ProjectList.projectsList);
+			DOMInterface.updateToDo();
+		});
+		del.addEventListener('click', ()=>{
 		ProjectList.deleteProject(index);
 		DOMInterface.updateProjects(ProjectList.projectsList);
-	});
-
+		});
+	}
 	return projectCard;
 }
 

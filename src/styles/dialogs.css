@@ -1,0 +1,26 @@
+#to-do-info{
+	inset: 0;
+	margin: auto;
+	background-color: var(--bright-clr);
+	border: none;
+	border-radius: 6px;
+	padding: 1em;
+}
+
+#to-do-info::backdrop{
+	background-color: rgba(104, 107, 109, 0.38);
+}
+
+#to-do-info > form{
+	display: grid;
+	gap: 6px;
+}
+
+#to-do-info input, #to-do-info textarea{
+	background-color: var(--bright-highlight-clr);
+	border-style: none;
+	border: 2px solid var(--main-shadow-clr);
+	padding: 6px;
+	border-radius: 6px;
+}
+
