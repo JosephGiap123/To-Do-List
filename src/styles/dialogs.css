@@ -1,4 +1,4 @@
-#to-do-info{
+#dynamic-dialog{
 	inset: 0;
 	margin: auto;
 	background-color: var(--bright-clr);
@@ -7,16 +7,16 @@
 	padding: 1em;
 }
 
-#to-do-info::backdrop{
+#dynamic-dialog::backdrop{
 	background-color: rgba(104, 107, 109, 0.38);
 }
 
-#to-do-info > form{
+#dynamic-dialog > form{
 	display: grid;
 	gap: 6px;
 }
 
-#to-do-info input, #to-do-info textarea{
+#dynamic-dialog input, #dynamic-dialog textarea{
 	background-color: var(--bright-highlight-clr);
 	border-style: none;
 	border: 2px solid var(--main-shadow-clr);

@@ -6,6 +6,29 @@
 
 .projects-list{
 	margin-inline: 2em;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.add-project{
+	padding-inline: 10px;
+	width: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.add-proj-logo{
+	border: none;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px;
+	width: 30px;
+	height: 30px;
+	background-image: url(../assets/plus-box.png);
 }
 
 .project-card{
