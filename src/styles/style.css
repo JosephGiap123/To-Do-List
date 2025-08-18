@@ -1,3 +1,8 @@
+@font-face {
+	font-family: "Roboto";
+	src: url(../assets/Roboto-VariableFont_wdth,wght.ttf) format('truetype');
+}
+
 :root{
 	--main-clr: #2b3340;
 	--main-highlight-clr: #3f5671;
@@ -9,6 +14,12 @@
 	--bright-highlight-clr: rgb(179, 255, 252);
 
 	--main-font-clr: beige;
+
+	--main-font: "Roboto";
+}
+
+*{
+	font-family: var(--main-font), sans-serif;
 }
 
 html, body{

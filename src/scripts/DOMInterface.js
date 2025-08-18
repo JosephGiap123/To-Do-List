@@ -39,7 +39,6 @@ export class DOMInterface{
 	}
 
 	static changeToDoDialog(index, name, desc, dueDate, priority){
-		console.log(desc);
 		this.#_dialog.innerHTML = 
 		`<form class="change-form" data-idx='${index}'>
 				<p class="dialog-title">Edit To-Do</p>
@@ -177,7 +176,6 @@ function createCard(name, desc,  priority, dueDate, index){
 	});
 	edit.addEventListener('click', ()=>{
 		DOMInterface.changeToDoDialog(index, name, desc, dueDate, priority);
-		console.log(dueDate);
 		const dialog = document.querySelector('#dynamic-dialog');
 		dialog.showModal();
 	});
