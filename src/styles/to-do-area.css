@@ -10,6 +10,7 @@
 }
 
 .to-do-card{
+	position: relative;
 	color: black;
 	background-color: var(--main-highlight-clr);
 	padding: 1em;
@@ -20,6 +21,18 @@
 	gap: 6px;
 	align-items: center;
 	justify-items: end;
+}
+
+.priority-num{
+	position: absolute;
+	left: -10px;
+	top: -10px;
+	background-color: var(--bright-highlight-clr);
+	padding: 6px;
+	border-radius: 20px;
+	height: 20px;
+	width: 20px;
+	font-weight: 600;
 }
 
 .add-to-do-button{

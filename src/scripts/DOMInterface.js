@@ -117,10 +117,12 @@ export class DOMInterface{
 	}
 
 	static displayProjects(projectList){
-		projectList.forEach((project, index)=>{
-			const projCard = createProjectCard(project, index);
-			this.#_projectArea.appendChild(projCard);
-		});
+		if(projectList){
+			projectList.forEach((project, index)=>{
+				const projCard = createProjectCard(project, index);
+				this.#_projectArea.appendChild(projCard);
+			});
+		}
 		const addProject = createDOMElement('div', ['add-project']);
 		addProject.appendChild(createDOMElement('div', ['add-proj-logo']));
 
@@ -140,11 +142,16 @@ export class DOMInterface{
 	}
 
 	static displayToDos(project){
-		this.#_cardArea.textContent = ProjectList.currentProject.name;
-		project.toDoList.forEach((toDo, index)=>{
-			this.#_cardArea.appendChild(createCard(toDo.title, toDo.description, toDo.priority, toDo.dueDate, index));
-		});
-		this.#_cardArea.appendChild(createAddToDoButton());
+		if(ProjectList.currentProject.toDoList === undefined){
+			this.#_cardArea.textContent = 'No Project is being viewed';
+		}
+		else{
+			this.#_cardArea.textContent = ProjectList.currentProject.name;
+			project.toDoList.forEach((toDo, index)=>{
+				this.#_cardArea.appendChild(createCard(toDo.title, toDo.description, toDo.priority, toDo.dueDate, index));
+			});
+			this.#_cardArea.appendChild(createAddToDoButton());
+		}
 	}
 
 	static updateToDo(){
@@ -158,6 +165,7 @@ export class DOMInterface{
 function createCard(name, desc,  priority, dueDate, index){
 	const toDoCard = createDOMElement("div", ['to-do-card'], "", {idx: `${index}`});
 	toDoCard.appendChild(createDOMElement("p", ['title'], name));
+	toDoCard.appendChild(createDOMElement('div', ['priority-num'], priority));
 	const up = toDoCard.appendChild(createDOMElement("button", ['up-button']));
 	const down = toDoCard.appendChild(createDOMElement("button", ['down-button']));
 	const edit = toDoCard.appendChild(createDOMElement("button", ['edit-button']));
@@ -197,6 +205,7 @@ function createAddToDoButton(){
 		const dialog = document.querySelector('#dynamic-dialog');
 		dialog.showModal();
 	});
+
 	return toDoButton;
 }
 
@@ -205,7 +214,6 @@ function createProjectCard(project, index){
 	projectCard.appendChild(createDOMElement("p", [], project.name));
 	const rename = projectCard.appendChild(createDOMElement("button", ["rename-project"]));
 	rename.addEventListener('click', ()=>{
-		console.log('rename');
 		DOMInterface.createRenameProjectDialog(index);
 		const dialog = document.querySelector('#dynamic-dialog');
 		dialog.showModal();

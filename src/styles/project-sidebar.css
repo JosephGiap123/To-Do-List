@@ -2,13 +2,20 @@
 	grid-area: sidebar;
 	background-color: var(--sec-clr);
 	padding: 1em;
+	display: grid;
+	grid-template-rows: 50px 1fr;
+	height: calc(100vh - 90px - 2em);
 }
 
 .projects-list{
+	max-height: 100%;
+	width: 220px;
 	margin-inline: 2em;
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .add-project{
@@ -52,6 +59,7 @@
 	overflow: hidden;
 	justify-self: start;
 }
+
 
 .delete-project, .rename-project , .view-project{
 	border: none;

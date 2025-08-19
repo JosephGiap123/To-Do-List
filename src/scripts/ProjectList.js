@@ -7,8 +7,12 @@ export class ProjectList{
 
 
 	static changeCurrentProject(newIndex){
+		if(this.projectsList.length === 0){
+			this.currentProject = {};
+			return;
+		}
 		if(newIndex < 0 || newIndex > this.projectsList.length) return;
-		ProjectList.currentProject = this.projectsList[newIndex];
+		this.currentProject = this.projectsList[newIndex];
 	}
 
 	static addProject(name){
@@ -24,6 +28,9 @@ export class ProjectList{
 	static deleteProject(index){
 		if(index < 0 || index > this.projectsList.length) return;
 		this.projectsList.splice(index, 1);
+		if(this.projectsList.length === 0){
+			this.currentProject = {};
+		}
 	}
 
 	static changeToDo(index, name, desc, dueDate, priority){
@@ -31,6 +38,9 @@ export class ProjectList{
 	}
 
 	static addToDo(name, desc, dueDate, priority){
+		if(this.currentProject.toDoList === undefined){
+			return;
+		}
 		this.currentProject.addCard(name, desc, dueDate, priority);
 	}
 
