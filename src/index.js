@@ -8,26 +8,19 @@ import { DOMInterface } from './scripts/DOMInterface';
 // ProjectList.addProject('Project1');
 // ProjectList.addProject('Project2');
 
-
-ProjectList.addToDo('A', '', "2004-09-04", 4);
-ProjectList.addToDo('B', '', "2025-01-03", 2);
-ProjectList.addToDo('C', '', "2020-02-02", 3);
-
-ProjectList.deleteProject(0);
-
-ProjectList.addToDo('A', '', "2004-09-04", 4);
-
+// ProjectList.addToDo('A', '', "2004-09-04", 4);
+// ProjectList.addToDo('B', '', "2025-01-03", 2);
+// ProjectList.addToDo('C', '', "2020-02-02", 3);
+// ProjectList.addToDo('A', '', "2004-09-04", 4);
 
 // const stringified = JSON.stringify(ProjectList.projectsList);
 // console.log(stringified);
 // console.log(JSON.parse(stringified));
 
-// ProjectList.changeCurrentProject()
-DOMInterface.clearTodoDOM();
-DOMInterface.displayToDos(ProjectList.currentProject);
+ProjectList.loadFromStorage();
 
-DOMInterface.clearProjectsDOM();
-DOMInterface.displayProjects();
+DOMInterface.updateProjects(ProjectList.projectsList);
+DOMInterface.updateToDo();
 
 
 
