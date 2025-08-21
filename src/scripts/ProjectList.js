@@ -73,6 +73,5 @@ export class ProjectList{
 
 	static #_saveToStorage(){
 		localStorage.setItem('projectList', JSON.stringify(this.projectsList));
-		console.log(localStorage.getItem('projectList'));
 	}
 }
